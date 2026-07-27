@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; media-src 'self' blob: mediastream:; img-src 'self' data:;"
+    />
+    <title>Littlepad</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <h1>Littlepad</h1>
+      <span class="status" id="status" data-state="idle">ยังไม่เชื่อมต่อ</span>
+    </header>
+
+    <!-- แถบเส้นทางสัญญาณ: บอกว่าเสียงกำลังวิ่งไปถึงไหนแล้ว -->
+    <section class="chain" aria-label="เส้นทางสัญญาณเสียง">
+      <ol class="chain-nodes">
+        <li data-node="mic"><span class="lamp"></span>ไมค์</li>
+        <li data-node="pad"><span class="lamp"></span>แพด</li>
+        <li data-node="cable"><span class="lamp"></span>สายเสมือน</li>
+        <li data-node="app"><span class="lamp"></span>Discord</li>
+      </ol>
+      <div class="meters">
+        <div class="meter"><i id="meter-mic"></i></div>
+        <div class="meter"><i id="meter-pad"></i></div>
+      </div>
+      <button class="connect" id="connect" type="button">เชื่อมต่อไมค์และสายเสมือน</button>
+      <p class="hint" id="connect-hint">
+        ต้องมีสายเสียงเสมือนก่อน (VB-Cable บน Windows / BlackHole บน macOS)
+        <button class="linklike" id="cable-help" type="button">วิธีติดตั้ง</button>
+      </p>
+    </section>
+
+    <details class="panel" id="routing-panel" open>
+      <summary>เส้นทางเสียง</summary>
+      <div class="panel-body">
+        <label class="field">
+          <span>ปลายทางที่ Discord ฟัง</span>
+          <select id="device-virtual"></select>
+        </label>
+        <label class="field">
+          <span>หูฟังของเรา</span>
+          <select id="device-monitor"></select>
+        </label>
+        <label class="field">
+          <span>ไมค์</span>
+          <select id="device-mic"></select>
+        </label>
+
+        <label class="switch">
+          <input type="checkbox" id="mic-passthrough" />
+          <span>ส่งเสียงพูดเข้าสายเสมือนด้วย</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="monitor-enabled" />
+          <span>ได้ยินเสียงแพดในหูฟังตัวเอง</span>
+        </label>
+
+        <label class="field slider">
+          <span>ระดับเสียงรวม <b id="master-value">80%</b></span>
+          <input type="range" id="master-volume" min="0" max="100" />
+        </label>
+        <label class="field slider">
+          <span>ระดับเสียงไมค์ <b id="mic-value">100%</b></span>
+          <input type="range" id="mic-volume" min="0" max="150" />
+        </label>
+      </div>
+    </details>
+
+    <section class="pad">
+      <div class="pad-head">
+        <h2>เสียง <span id="sound-count">0</span></h2>
+        <button class="primary" id="add-sound" type="button">เพิ่มเสียง</button>
+      </div>
+      <ul class="sound-list" id="sound-list"></ul>
+      <p class="empty" id="empty-state">
+        ยังไม่มีเสียง กด “เพิ่มเสียง” หรือลากไฟล์ mp3 / wav มาวางตรงนี้ได้เลย
+      </p>
+    </section>
+
+    <footer class="footer">
+      <label class="switch compact">
+        <input type="checkbox" id="hotkeys-enabled" />
+        <span>คีย์ลัดทำงาน</span>
+      </label>
+      <div class="stop-all">
+        <span>หยุดทุกเสียง</span>
+        <button class="hotkey" id="stop-all-hotkey" type="button">F9</button>
+      </div>
+    </footer>
+
+    <div class="drop-veil" id="drop-veil"><span>วางไฟล์เพื่อเพิ่มเสียง</span></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <template id="sound-row">
+      <li class="sound">
+        <button class="play" type="button" aria-label="เล่นเสียง"></button>
+        <div class="sound-main">
+          <input class="name" type="text" spellcheck="false" />
+          <input class="volume" type="range" min="0" max="100" />
+        </div>
+        <button class="hotkey" type="button"></button>
+        <button class="remove" type="button" aria-label="ลบเสียง">✕</button>
+      </li>
+    </template>
+
+    <script src="index.js"></script>
+  </body>
+</html>
