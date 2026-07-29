@@ -1,5 +1,9 @@
 # Mini Soundpad
 
+![โลโก้โปรแกรม](<img width="350" height="350" alt="e3507d8a2472b9cb" src="https://github.com/user-attachments/assets/dbd6fc88-ef97-46f0-b35e-a8c5cfcc778c" />)
+
+**[DOWNLOAD HERE](https://github.com/SomeDaya/Littlepad-soundboard-early_access/releases/tag/v0.1.0-alpha)**
+
 Soundpad ตัวเล็ก ๆ สำหรับเล่นเสียงเข้าไมค์ตัวเอง ให้เพื่อนใน Discord ได้ยิน
 เขียนด้วย TypeScript + Electron
 
